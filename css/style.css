@@ -27,7 +27,7 @@
 
     --subheading-color: #6e6e6e;
     --button-border-color: #e2f4ffcd;
-    --grid-hover-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    --grid-hover-box-shadow: rgba(149, 157, 165, 0.35) 0px 12px 30px;
 
     --linkedIn-icon-color: white;
     --linkedIn-background-color: #5285ce;
@@ -65,7 +65,7 @@
 
     --subheading-color: rgba(250, 250, 250, 0.6);
     --button-border-color: #2f363d;
-    --grid-hover-box-shadow: rgb(36, 36, 37) 0px 4px 16px;
+    --grid-hover-box-shadow: rgba(0, 0, 0, 0.55) 0px 10px 24px;
 
     --linkedIn-icon-color: #5285ce;
     --linkedIn-background-color: var(--card-color);
@@ -88,6 +88,23 @@
 a {
     text-decoration: none;
     color: var(--text-color);
+}
+
+.skip-link {
+    position: absolute;
+    left: 16px;
+    top: -40px;
+    background: var(--card-color);
+    color: var(--text-color);
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 2px solid var(--button-border-color);
+    z-index: 1000;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: 16px;
 }
 
 .card-header {
@@ -151,6 +168,7 @@ a {
 
 .inactive {
     opacity: var(--card-opacity-inactive);
+    pointer-events: none;
 }
 
 
@@ -181,15 +199,18 @@ a {
     border-radius: 32px;
     background-color: var(--card-color);
     padding: 22px;
-    transition: var(--transition-delay);
-    overflow: none;
+    transition: transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 240ms ease, box-shadow var(--transition-delay), border-color var(--transition-delay);
     border: 3px solid var(--button-border-color);
+    transform: translateY(0) scale(1);
+    will-change: transform, opacity;
 }
 
 
 .card:hover {
     box-shadow: var(--grid-hover-box-shadow);
+    transform: translateY(-4px) scale(1.01);
 }
+
 
 
 /*            */
@@ -205,7 +226,7 @@ header {
     justify-content: space-between;
     height: 96px;
     padding: 0 32px;
-    max-width: 80%x;
+    max-width: 80%;
     margin: 32px auto;
 }
 
@@ -236,6 +257,10 @@ header {
     border-radius: 100px;
     transition: all 0.3s;
     padding: 8px 16px;
+    background: transparent;
+    border: none;
+    font: inherit;
+    color: inherit;
 }
 
 .filter:hover {
@@ -252,6 +277,11 @@ header {
     cursor: default;
 }
 
+.filter:focus-visible {
+    outline: 3px solid var(--button-border-color);
+    outline-offset: 2px;
+}
+
 
 /*               */
 /*  THEME TOGGLE */
@@ -266,12 +296,19 @@ header {
     gap: 1.33rem;
     align-items: center;
     cursor: pointer;
+    border: none;
+    font: inherit;
     border-radius: 50px;
     padding: .7rem;
     background: var(--toggle-background);
     box-shadow: var(--toggle-box-shadow);
     transition: ease-in-out var(--toggle-transition);
     transform: scale(80%);
+}
+
+.theme-switcher:focus-visible {
+    outline: 3px solid var(--button-border-color);
+    outline-offset: 4px;
 }
 
 .theme-switcher::before {
@@ -317,6 +354,7 @@ header {
     justify-content: space-between;
     overflow: visible;
     position: relative;
+    font-family: 'Roboto', sans-serif;
 }
 
 .intro-img {
@@ -383,20 +421,20 @@ form .form-row .textarea {
     width: 100%;
     margin: 20px 0;
     height: 100%;
+    padding-top: 12px;
     border: none;
     font-size: 1rem;
     border-bottom: 2px solid rgba(0, 0, 0, 0.12);
     outline: none;
-    background-color: var(--card-color);
     color: var(--text-color);
     background-color: transparent;
 }
 
 .input-data input:focus~label,
 .textarea textarea:focus~label,
-.input-data input:valid~label,
-.textarea textarea:valid~label {
-    transform: translateY(-25px);
+.input-data input:not(:placeholder-shown)~label,
+.textarea textarea:not(:placeholder-shown)~label {
+    transform: translateY(-18px);
     font-size: 0.7rem;
     color: #3498db;
 }
@@ -408,20 +446,25 @@ input:active {
 
 .input-data textarea {
     resize: none;
-    padding-top: 15px;
+    padding-top: 26px;
+}
+
+.input-data input::placeholder,
+.textarea textarea::placeholder {
+    color: transparent;
 }
 
 .input-data label {
     position: absolute;
     pointer-events: none;
-    bottom: 10px;
+    top: 16px;
     font-size: 1rem;
     transition: all 0.3s ease;
 }
 
 .textarea label {
     width: 100%;
-    bottom: 220px;
+    top: 15px;
     background-color: transparent;
 }
 
@@ -444,10 +487,22 @@ input:active {
 }
 
 .input-data input:focus~.underline:before,
-.input-data input:valid~.underline:before,
+.input-data input:not(:placeholder-shown)~.underline:before,
 .textarea textarea:focus~.underline:before,
-.textarea textarea:valid~.underline:before {
+.textarea textarea:not(:placeholder-shown)~.underline:before {
     transform: scale(1);
+}
+
+.field-error {
+    min-height: 16px;
+    margin-top: 6px;
+    font-size: 0.8rem;
+    color: #d14343;
+}
+
+.input-data input[aria-invalid="true"],
+.textarea textarea[aria-invalid="true"] {
+    border-bottom-color: #d14343;
 }
 
 /*            */
@@ -497,9 +552,59 @@ input:active {
 
 .card-spotify {
     display: flex;
-    display: none;
-    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: space-between;
+}
+
+.spotify-header {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
+}
+
+.spotify-logo {
+    color: var(--text-color);
+    font-size: 1.6rem;
+}
+
+.spotify-body {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.spotify-cover {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 2px solid var(--button-border-color);
+}
+
+.spotify-track {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.spotify-artist {
+    font-size: 0.9rem;
+    color: var(--subheading-color);
+}
+
+.spotify-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 2px solid var(--button-border-color);
+    transition: var(--transition-delay);
+    width: fit-content;
+}
+
+.spotify-cta:hover {
+    box-shadow: 0 0 0 4px var(--button-border-color);
 }
 
 /* WEATHER */
@@ -622,6 +727,7 @@ input.weather-search-bar {
 .project-preview-container img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 
 .project-btn-container {
@@ -702,4 +808,12 @@ input.weather-search-bar {
 
 .logo-linkedin {
     color: var(--linkedIn-icon-color);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
 }
