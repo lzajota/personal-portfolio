@@ -102,7 +102,7 @@
     --font-lg: 1rem;
     --font-xl: 1.4rem;
     --font-2xl: 1.7rem;
-    --font-display: 1.9rem;
+    --font-display: 2rem;
 
     --weight-regular: 400;
     --weight-medium: 500;
@@ -264,17 +264,22 @@ a {
 header {
     display: flex;
     align-items: center;
-    justify-content: center;
     justify-content: space-between;
     height: var(--size-header);
     padding: 0 var(--space-7);
     max-width: 80%;
-    margin: var(--space-7) auto;
+    margin: var(--space-7) auto 56px;
 }
 
 .header-logo {
     font-size: var(--font-display);
     font-family: 'Borel', cursive;
+    line-height: 1.1;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    padding-top: 16px;
 }
 
 .filters-container {
@@ -283,6 +288,14 @@ header {
     padding: 4px 5px 4px 5px;
     border-radius: 100px;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 
 .filters {
@@ -345,6 +358,7 @@ header {
     box-shadow: var(--toggle-box-shadow);
     transition: ease-in-out var(--toggle-transition);
     transform: scale(80%);
+    align-self: center;
 }
 
 .theme-switcher:focus-visible {
@@ -411,6 +425,7 @@ header {
 .intro-subheader {
     font-weight: var(--weight-medium);
     margin-top: 1.2em;
+    font-size: var(--font-2xl);
 }
 
 .intro-text {
