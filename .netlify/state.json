@@ -1,0 +1,20 @@
+{
+	"geolocation": {
+		"data": {
+			"city": "New York",
+			"country": {
+				"code": "US",
+				"name": "United States"
+			},
+			"subdivision": {
+				"code": "NY",
+				"name": "New York"
+			},
+			"timezone": "America/New_York",
+			"latitude": 40.7126,
+			"longitude": -74.0066,
+			"postalCode": "10118"
+		},
+		"timestamp": 1770237963442
+	}
+}

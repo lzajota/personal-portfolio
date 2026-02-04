@@ -35,6 +35,17 @@ const getNowPlaying = async (accessToken) => {
   });
 };
 
+const getRecentlyPlayed = async (accessToken) => {
+  return fetch("https://api.spotify.com/v1/me/player/recently-played?limit=1", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+const FALLBACK_COVER =
+  "/assets/images/Spotify_Primary_Logo_RGB_Black.png";
+
 exports.handler = async () => {
   if (!SPOTIFY_CLIENT_ID || !SPOTIFY_CLIENT_SECRET || !SPOTIFY_REFRESH_TOKEN) {
     return {
@@ -48,6 +59,27 @@ exports.handler = async () => {
     const response = await getNowPlaying(accessToken);
 
     if (response.status === 204 || response.status === 202) {
+      const recentResponse = await getRecentlyPlayed(accessToken);
+      if (recentResponse.ok) {
+        const recentData = await recentResponse.json();
+        const recentItem = recentData.items?.[0]?.track;
+        return {
+          statusCode: 200,
+          headers: {
+            "Cache-Control": "no-store",
+          },
+          body: JSON.stringify({
+            isPlaying: false,
+            track: recentItem?.name || "Unknown",
+            artist:
+              recentItem?.artists?.map((artist) => artist.name).join(", ") ||
+              "Unknown",
+            albumArt: recentItem?.album?.images?.[0]?.url || FALLBACK_COVER,
+            songUrl:
+              recentItem?.external_urls?.spotify || "https://open.spotify.com/",
+          }),
+        };
+      }
       return {
         statusCode: 200,
         headers: {
@@ -79,7 +111,7 @@ exports.handler = async () => {
         isPlaying: data.is_playing,
         track: song?.name || "Unknown",
         artist: song?.artists?.map((artist) => artist.name).join(", ") || "Unknown",
-        albumArt: song?.album?.images?.[0]?.url || "/assets/images/og.png",
+        albumArt: song?.album?.images?.[0]?.url || FALLBACK_COVER,
         songUrl: song?.external_urls?.spotify || "https://open.spotify.com/",
       }),
     };
