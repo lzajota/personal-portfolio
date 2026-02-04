@@ -413,7 +413,7 @@ const updateSpotifyCard = (data) => {
             spotifyCover.alt = "Spotify logo";
             spotifyCover.classList.add("spotify-cover--fallback");
         }
-        if (spotifyStatusText) spotifyStatusText.textContent = "MUSIC";
+        if (spotifyStatusText) spotifyStatusText.textContent = "MUSIC - LAST PLAYED";
         if (spotifyStatusDot) spotifyStatusDot.classList.add("is-hidden");
         return;
     }
