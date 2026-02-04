@@ -50,6 +50,9 @@ exports.handler = async () => {
     if (response.status === 204 || response.status === 202) {
       return {
         statusCode: 200,
+        headers: {
+          "Cache-Control": "no-store",
+        },
         body: JSON.stringify({ isPlaying: false }),
       };
     }
@@ -57,6 +60,9 @@ exports.handler = async () => {
     if (!response.ok) {
       return {
         statusCode: response.status,
+        headers: {
+          "Cache-Control": "no-store",
+        },
         body: JSON.stringify({ isPlaying: false }),
       };
     }
@@ -66,6 +72,9 @@ exports.handler = async () => {
 
     return {
       statusCode: 200,
+      headers: {
+        "Cache-Control": "no-store",
+      },
       body: JSON.stringify({
         isPlaying: data.is_playing,
         track: song?.name || "Unknown",
@@ -77,6 +86,9 @@ exports.handler = async () => {
   } catch (error) {
     return {
       statusCode: 200,
+      headers: {
+        "Cache-Control": "no-store",
+      },
       body: JSON.stringify({ isPlaying: false }),
     };
   }

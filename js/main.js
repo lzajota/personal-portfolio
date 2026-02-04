@@ -197,6 +197,15 @@ function filterProduct(value) {
             }
         }
     });
+
+    const spotifyCard = document.querySelector(".card-spotify");
+    if (spotifyCard) {
+        if (value === "all") {
+            spotifyCard.classList.remove("deemphasized");
+        } else {
+            spotifyCard.classList.add("deemphasized");
+        }
+    }
 }
 
 
@@ -391,7 +400,9 @@ const spotifyCard = document.querySelector(".card-spotify");
 const spotifyCover = document.querySelector(".spotify-cover");
 const spotifyTrack = document.querySelector(".spotify-track");
 const spotifyArtist = document.querySelector(".spotify-artist");
-const spotifyCta = document.querySelector(".spotify-cta");
+const spotifyStatusRow = document.querySelector(".spotify-status-row");
+const spotifyStatusText = document.querySelector(".spotify-status-text");
+const spotifyStatusDot = document.querySelector(".spotify-status-dot");
 
 const updateSpotifyCard = (data) => {
     if (!spotifyCard) return;
@@ -400,20 +411,24 @@ const updateSpotifyCard = (data) => {
         spotifyArtist.textContent = "—";
         spotifyCover.src = "/assets/images/og.png";
         spotifyCover.alt = "Album cover";
-        spotifyCta.href = "https://open.spotify.com/";
+        if (spotifyStatusText) spotifyStatusText.textContent = "MUSIC";
+        if (spotifyStatusDot) spotifyStatusDot.classList.add("is-hidden");
         return;
     }
     spotifyTrack.textContent = data.track;
     spotifyArtist.textContent = data.artist;
     spotifyCover.src = data.albumArt;
     spotifyCover.alt = `${data.track} album cover`;
-    spotifyCta.href = data.songUrl;
+    if (spotifyStatusText) spotifyStatusText.textContent = "NOW PLAYING";
+    if (spotifyStatusDot) spotifyStatusDot.classList.remove("is-hidden");
 };
 
 const fetchNowPlaying = async () => {
     if (!spotifyCard) return;
     try {
-        const response = await fetch("/.netlify/functions/spotify");
+        const response = await fetch(`/.netlify/functions/spotify?t=${Date.now()}`, {
+            cache: "no-store",
+        });
         if (!response.ok) {
             updateSpotifyCard(null);
             return;
