@@ -10,13 +10,14 @@
     <meta name="description" content="Simba Zajota's Portfolio" />
 
     <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="%/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/favicons/site.webmanifest">
 
-    <meta name="image" content="/assets/og.png" />
+    <meta name="image" content="/assets/images/og.png" />
     <meta property="og:title" content="Simba Zajota's Portfolio" />
     <meta property="og:description" content="Simba Zajota's Portfolio" />
-    <meta property="og:image" content="/assets/og.png" />
+    <meta property="og:image" content="/assets/images/og.png" />
 
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/layout.css" />
@@ -29,45 +30,49 @@
 </head>
 
 <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <header>
         <h1 class="header-logo">Lisimba Zajota</h1>
         <nav>
             <div class="filters-container">
                 <ul class="filters">
-                    <li class="filter" onclick="filterProduct('all')" data-filter="all">All</li>
-                    <li class="filter" onclick="filterProduct('about')" data-filter="about">About</li>
-                    <li class="filter" onclick="filterProduct('projects')" data-filter="projects">Projects</li>
-                    <li class="filter" onclick="filterProduct('contact')" data-filter="contact">Contact</li>
+                    <li>
+                        <button class="filter" type="button" data-filter="all">All</button>
+                    </li>
+                    <li>
+                        <button class="filter" type="button" data-filter="about">About</button>
+                    </li>
+                    <li>
+                        <button class="filter" type="button" data-filter="projects">Projects</button>
+                    </li>
+                    <li>
+                        <button class="filter" type="button" data-filter="contact">Contact</button>
+                    </li>
                 </ul>
             </div>
         </nav>
-        <div class="theme-switcher">
+        <button class="theme-switcher" type="button" aria-label="Toggle theme" aria-pressed="false">
             <ion-icon class="toggle-icon sun" name="sunny"></ion-icon>
             <ion-icon class="toggle-icon moon" name="moon"></ion-icon>
-        </div>
+        </button>
     </header>
-    <main>
+    <main id="main">
         <div class="grid-container">
             <div class="grid">
                 <!-- INTRO CARD -->
-                <!-- INTRO CARD -->
-                <!-- INTRO CARD -->
                 <div class="card card-intro about" id="card-intro-all">
-                    <img class="intro-img" src="/assets/memoji3.png" alt="">
+                    <img class="intro-img" src="/assets/images/memoji3.png" alt="Memoji illustration of Simba">
                     <div>
                         <h2 class="intro-subheader">Front-End Developer</h2>
                     </div>
                     <div>
-                        <p class="intro-text">Hey, my name is Simba and welcome to my portfolio! My goal is to
-                            develop my skills as a developer and join an inspiring team. I transform designs into
+                        <p class="intro-text">Hey, welcome to my portfolio! My name is Simba, I'm a Frontend Developer focused on clean UI, accessibility, and performance using React and modern JavaScript. I transform designs into
                             captivating user experiences, let's craft exceptional digital experiences together.</p>
                     </div>
                     <div class="intro-btn-container">
-                        <button class="btn intro-btn primary-btn">My Projects...</button>
+                        <button class="btn intro-btn primary-btn">Projects</button>
                     </div>
                 </div>
-                <!-- MAP -->
-                <!-- MAP -->
                 <!-- MAP -->
                 <div class="card card-map about" id="card-map-all">
                     <div id="map">
@@ -76,36 +81,39 @@
                     </div>
                 </div>
                 <!-- CONTACT -->
-                <!-- CONTACT -->
-                <!-- CONTACT -->
                 <div class="card card-contact contact" id="card-contact-all">
-                    <form action="https://formsubmit.co/6a55411020ffc2777bed857cc61d45ec" method="POST">
+                    <form action="https://formsubmit.co/6a55411020ffc2777bed857cc61d45ec" method="POST" novalidate>
                         <input type="hidden" name="_captcha" value="false">
                         <h2 class="card-header">Get in Touch:</h2>
                         <div class="form-row">
                             <div class="input-data">
-                                <input type="text" name="firstname" required>
+                                <input id="first-name" type="text" name="firstname" autocomplete="given-name"
+                                    placeholder=" " required aria-describedby="error-first-name">
                                 <div class="underline"></div>
-                                <label for="">First Name</label>
+                                <label for="first-name">First Name</label>
+                                <p class="field-error" id="error-first-name" aria-live="polite"></p>
                             </div>
                             <div class="input-data">
-                                <input type="text" name="lastname" required>
+                                <input id="last-name" type="text" name="lastname" autocomplete="family-name"
+                                    placeholder=" " required aria-describedby="error-last-name">
                                 <div class="underline"></div>
-                                <label for="">Last Name</label>
+                                <label for="last-name">Last Name</label>
+                                <p class="field-error" id="error-last-name" aria-live="polite"></p>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="input-data">
-                                <input type="text email" name="email" required>
+                                <input id="email" type="email" name="email" autocomplete="email" placeholder=" "
+                                    required aria-describedby="error-email">
                                 <div class="underline"></div>
-                                <label for="">Email Address</label>
+                                <label for="email">Email Address</label>
+                                <p class="field-error" id="error-email" aria-live="polite"></p>
                             </div>
                             <div class="input-data textarea">
-                                <label for="">Write your message:</label>
-                                <br />
-                                <textarea name="message" rows="9" cols="80" placeholder="..." required></textarea>
-                                <br />
-                                <!-- <div class="underline"></div> -->
+                                <textarea id="message" name="message" rows="9" cols="80" placeholder=" " required
+                                    aria-describedby="error-message"></textarea>
+                                <label for="message">Write your message:</label>
+                                <p class="field-error" id="error-message" aria-live="polite"></p>
                             </div>
                             <div class="form-row submit-btn">
                                 <button type="submit" class="btn primary-btn">Send</button>
@@ -114,66 +122,76 @@
                     </form>
                 </div>
                 <!-- SKILLS -->
-                <!-- SKILLS -->
-                <!-- SKILLS -->
                 <div class="card card-skills about projects" id="card-skills-all">
                     <h2 class="card-header">Skills:</h2>
                     <div class="skills-container">
                         <div>
                             <img class="skill-icon" src="https://www.vectorlogo.zone/logos/w3_html5/w3_html5-icon.svg"
-                                alt="">
+                                alt="HTML5">
                         </div>
                         <div>
                             <img class="skill-icon" src="https://www.vectorlogo.zone/logos/w3_css/w3_css-icon.svg"
-                                alt="">
+                                alt="CSS3">
                         </div>
                         <div>
                             <img class="skill-icon"
                                 src="https://upload.vectorlogo.zone/logos/javascript/images/239ec8a4-163e-4792-83b6-3f6d96911757.svg"
-                                alt="">
+                                alt="JavaScript">
                         </div>
                         <div>
                             <img class="skill-icon" src="https://www.vectorlogo.zone/logos/reactjs/reactjs-icon.svg"
-                                alt="">
+                                alt="React">
                         </div>
                         <div>
                             <img class="skill-icon" src="https://www.vectorlogo.zone/logos/nodejs/nodejs-icon.svg"
-                                alt="">
+                                alt="Node.js">
                         </div>
                         <div>
                             <img class="skill-icon nextjs-logo"
                                 src="https://upload.vectorlogo.zone/logos/nextjs/images/60eff509-53dd-4280-92e7-7318fa02e934.svg"
-                                alt="">
+                                alt="Next.js">
                         </div>
                         <div>
                             <img class="skill-icon" src="https://www.vectorlogo.zone/logos/expressjs/expressjs-icon.svg"
-                                alt="">
+                                alt="Express">
                         </div>
                         <div>
                             <img class="skill-icon" src="https://www.vectorlogo.zone/logos/mongodb/mongodb-icon.svg"
-                                alt="">
+                                alt="MongoDB">
                         </div>
                         <div>
                             <img class="skill-icon" src="https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg"
-                                alt="">
+                                alt="Firebase">
                         </div>
                     </div>
                 </div>
 
                 <!-- SPOTIFY -->
-                <!-- SPOTIFY -->
-                <!-- SPOTIFY -->
-                <div class=" card card-spotify" id="card-spotify-all">
-                    <p>Spotify Placeholder</p>
+                <div class="card card-spotify" id="card-spotify-all">
+                    <div class="spotify-header">
+                        <p class="card-subheader">NOW PLAYING</p>
+                        <a class="spotify-logo" href="https://open.spotify.com/" target="_blank" rel="noopener"
+                            aria-label="Open Spotify">
+                            <ion-icon name="logo-spotify"></ion-icon>
+                        </a>
+                    </div>
+                    <div class="spotify-body">
+                        <img class="spotify-cover" src="/assets/images/og.png" alt="Album cover">
+                        <div class="spotify-meta">
+                            <div class="spotify-track" aria-live="polite">Not playing</div>
+                            <div class="spotify-artist">—</div>
+                        </div>
+                    </div>
+                    <a class="spotify-cta" href="https://open.spotify.com/" target="_blank" rel="noopener">
+                        Open in Spotify
+                    </a>
                 </div>
 
                 <!-- WEATHER -->
-                <!-- WEATHER -->
-                <!-- WEATHER -->
                 <div class="card card-weather about" id="card-weather-all">
                     <div class="weather-search">
-                        <input type="text" class="weather-search-bar" placeholder="Search">
-                        <button class="weather-search-btn">
+                        <input type="text" class="weather-search-bar" placeholder="Search" aria-label="Search city">
+                        <button class="weather-search-btn" type="button" aria-label="Search weather">
                             <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024"
                                 height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -182,11 +200,11 @@
                             </svg>
                         </button>
                     </div>
-                    <div class="weather loading">
+                    <div class="weather loading" aria-live="polite" aria-atomic="true">
                         <h2 class="city">Weather in Denver</h2>
                         <h1 class="temp">51°C</h1>
                         <div class="flex">
-                            <img src="https://openweathermap.org/img/wn/04n.png" alt="" class="icon" />
+                            <img src="https://openweathermap.org/img/wn/04n.png" alt="Cloudy" class="icon" />
                             <div class="description card-subheader">Cloudy</div>
                         </div>
                         <div class="humidity card-subheader">Humidity: 60%</div>
@@ -195,35 +213,39 @@
                 </div>
 
                 <!-- PROJECTS -->
-                <!-- PROJECTS -->
-                <!-- PROJECTS -->
                 <div class="card card-quizzical projects" id="card-quizzical-all">
                     <div class="">
                         <p class="card-subheader">PROJECT</p>
                         <h2 class="card-header">Quizzical</h2>
                     </div>
-                    <div class="project-builtwith-container">
-                        <p class="card-subheader">BUILT WITH</p>
-                        <div class="project-skills-container">
-                            <img class="skill-icon" src="https://www.vectorlogo.zone/logos/w3_html5/w3_html5-icon.svg"
-                                alt="HTML Logo" />
+                    <div class="card-project-details">
+                        <div class="project-builtwith-container">
+                            <p class="card-subheader">BUILT WITH</p>
+                            <div class="project-skills-container">
+                                <img class="skill-icon"
+                                    src="https://www.vectorlogo.zone/logos/w3_html5/w3_html5-icon.svg"
+                                    alt="HTML Logo" />
 
-                            <img class="skill-icon" src="https://www.vectorlogo.zone/logos/w3_css/w3_css-icon.svg"
-                                alt="CSS Logo" />
+                                <img class="skill-icon"
+                                    src="https://www.vectorlogo.zone/logos/w3_css/w3_css-icon.svg" alt="CSS Logo" />
 
-                            <img class="skill-icon" src="https://www.vectorlogo.zone/logos/reactjs/reactjs-icon.svg"
-                                alt="React Logo" />
+                                <img class="skill-icon"
+                                    src="https://www.vectorlogo.zone/logos/reactjs/reactjs-icon.svg"
+                                    alt="React Logo" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="project-preview-container">
-                        <img src="/assets/quizzical-preview.png" alt="">
-                    </div>
-                    <div class="project-btn-container">
-                        <div class="btn primary-btn">
-                            <a href="https://willowy-fenglisu-6562dc.netlify.app/" target="_blank">View</a>
+                        <div class="project-preview-container">
+                            <img src="/assets/images/quizzical-preview.png" alt="Quizzical app preview">
                         </div>
-                        <div class="btn secondary-btn">
-                            <a href="https://github.com/lzajota/quizzical-app--react" target="_blank">About</a>
+                        <div class="project-btn-container">
+                            <div class="btn primary-btn">
+                                <a href="https://willowy-fenglisu-6562dc.netlify.app/" target="_blank"
+                                    rel="noopener">View</a>
+                            </div>
+                            <div class="btn secondary-btn">
+                                <a href="https://github.com/lzajota/quizzical-app--react" target="_blank"
+                                    rel="noopener">About</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -254,14 +276,16 @@
                             </div>
                         </div>
                         <div class="project-preview-container">
-                            <img src="assets/vanlife-preview.png" alt="">
+                            <img src="/assets/images/vanlife-preview.png" alt="Vanlife app preview">
                         </div>
                         <div class="project-btn-container">
                             <div class="btn primary-btn">
-                                <a href="https://vocal-kataifi-22b627.netlify.app/" target="_blank">View</a>
+                                <a href="https://vocal-kataifi-22b627.netlify.app/" target="_blank"
+                                    rel="noopener">View</a>
                             </div>
                             <div class="btn secondary-btn">
-                                <a href="https://github.com/lzajota/vanlife-app--react" target="_blank">About</a>
+                                <a href="https://github.com/lzajota/vanlife-app--react" target="_blank"
+                                    rel="noopener">About</a>
                             </div>
                         </div>
                     </div>
@@ -298,20 +322,20 @@
                             </div>
                         </div>
                         <div class="project-preview-container">
-                            <img src="/assets/evogym-preview.png" alt="">
+                            <img src="/assets/images/evogym-preview.png" alt="Evogym site preview">
                         </div>
                         <div class="project-btn-container">
                             <div class="btn primary-btn">
-                                <a href="https://aquamarine-rolypoly-752e6e.netlify.app" target="_blank">View</a>
+                                <a href="https://aquamarine-rolypoly-752e6e.netlify.app" target="_blank"
+                                    rel="noopener">View</a>
                             </div>
                             <div class="btn secondary-btn">
-                                <a href="https://github.com/lzajota/gym-typescript" target="_blank">About</a>
+                                <a href="https://github.com/lzajota/gym-typescript" target="_blank"
+                                    rel="noopener">About</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- GITHUB -->
-                <!-- GITHUB -->
                 <!-- GITHUB -->
                 <div class="card card-github social-media-container about projects contact" id="card-github-all">
                     <a href="https://github.com/lzajota" aria-label="Simba's Github" target="_blank" rel="noopener">
@@ -320,8 +344,6 @@
                         <ion-icon class="right-arrow" name="arrow-forward-outline"></ion-icon>
                     </a>
                 </div>
-                <!-- LINKEDIN -->
-                <!-- LINKEDIN -->
                 <!-- LINKEDIN -->
                 <div class="card card-linkedin social-media-container about contact" id="card-linkedin-all">
                     <a href="https://www.linkedin.com/in/lisimba-zajota/" aria-label="Ryan's linkedin" target="_blank"
@@ -342,7 +364,7 @@
     <script src="https://kit.fontawesome.com/2f4f39a2d2.js" crossorigin="anonymous"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="index.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 
