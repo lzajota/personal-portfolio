@@ -423,7 +423,7 @@ const updateSpotifyCard = (data) => {
     spotifyCover.src = data.albumArt || spotifyFallbackCover;
     spotifyCover.alt = `${data.track} album cover`;
     spotifyCover.classList.toggle("spotify-cover--fallback", fallbackNeeded);
-    if (spotifyStatusText) spotifyStatusText.textContent = "NOW PLAYING";
+    if (spotifyStatusText) spotifyStatusText.textContent = "MUSIC - NOW PLAYING";
     if (spotifyStatusDot) spotifyStatusDot.classList.remove("is-hidden");
 };
 

@@ -882,6 +882,10 @@ CHANGELOG:  DONE
         height: 150px;
     }
 
+    .spotify-body {
+        gap: 20px;
+    }
+
     .spotify-track {
         font-size: 1.15rem;
     }
